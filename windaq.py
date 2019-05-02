@@ -1,12 +1,10 @@
 '''
-Created on Sep 16, 2016
+Created on Febuary, 2019
 
 @author: samper
 
 Windaq class object to work directly with .wdq files
-code branch from original file windaq.py
-    REASON: migration from Notepad++ simple scripts to Eclipse project w/ Git SVC
-
+Python 3 Version
 '''
 
 #!/usr/bin/python
