@@ -114,9 +114,11 @@ class windaq(object):
     def unit(self, channelNumber):
         ''' return unit of requested channel '''
         unit = ''
-        for i in range(0,6):
-            unit = unit + self.engUnits[channelNumber-1][i]
+        for b in self.engUnits[channelNumber-1]:
+            unit += b.decode('utf-8')
             
+        ''' Was getting \x00 in the unit string after decodeing, lets remove that and whitespace '''
+        unit.replace('\x00', '').strip()
         return unit
     
     def chAnnotation(self, channelNumber):
