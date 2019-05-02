@@ -35,7 +35,6 @@ class windaq(object):
         
         ''' Read Header Info '''
         if (struct.unpack_from(B, self._fcontents, 1)[0]):                                              # max channels >= 144
-            
             self.nChannels      = (struct.unpack_from(B, self._fcontents, 0)[0])                        # number of channels is element 1
         else:
             self.nChannels      = (struct.unpack_from(B, self._fcontents, 0)[0]) & 31                   # number of channels is element 1 mask bit 5

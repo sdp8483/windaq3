@@ -1,1 +1,0 @@
-from windaq3 import windaq
