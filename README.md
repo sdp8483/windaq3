@@ -1,4 +1,7 @@
 # windaq3
+
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/sdp8483/windaq3/master)
+
 Enable Python 3.x to work with windaq .WDQ files without first exporting to CSV or other human readable format
 
 This library works with small to medium windaq files.
