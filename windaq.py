@@ -52,7 +52,7 @@ class windaq(object):
         self.fileCreated    = datetime.datetime.fromtimestamp(e14).strftime('%Y-%m-%d %H:%M:%S')        # datetime format of time file was opened by acquisition
         self.fileWritten    = datetime.datetime.fromtimestamp(e15).strftime('%Y-%m-%d %H:%M:%S')        # datetime format of time file was written by acquisition
         self._packed        = ((struct.unpack_from(UI, self._fcontents, 100)[0]) & 16384) >> 14         # bit 14 of element 27 indicates packed file. bitwise & e27 with 16384 to mask all bits but 14 and then shift to 0 bit place
-        self._HiRes         = ((struct.unpack_from(UI, self._fcontents, 100)[0]) & 1)                   # bit 1 of element 27 indicates a HiRes file with 16-bit data
+        self._HiRes         = ((struct.unpack_from(UI, self._fcontents, 100)[0]) & 2)                   # bit 1 of element 27 indicates a HiRes file with 16-bit data
     
         ''' read channel info '''
         self.scalingSlope       = []
