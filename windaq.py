@@ -24,7 +24,7 @@ class windaq(object):
         ''' Define data types based off convention used in documentation from Dataq '''
         UI = "<H" # unsigned integer, little endian
         I  = "<h" # integer, little endian
-        B  = "B"  # unsigned byte, kind of reduntent but lets keep consistant with the documentation
+        B  = "B"  # unsigned byte, kind of redundant but lets keep consistent with the documentation
         UL = "<L" # unsigned long, little endian
         D  = "<d" # double, little endian
         L  = "<l" # long, little endian
@@ -45,8 +45,8 @@ class windaq(object):
         self._headSize      = struct.unpack_from(I,  self._fcontents, 6)[0]                             # number of bytes in data file header
         self._dataSize      = struct.unpack_from(UL, self._fcontents, 8)[0]                             # number of ADC data bytes in file excluding header
         self.nSample        = (self._dataSize/(2*self.nChannels))                                       # number of samples per channel
-        self._trailerSize   = struct.unpack_from(UL, self._fcontents,12)[0]                             # total number of event marker, time and date stamp, and event marker commet pointer bytes in trailer
-        self._annoSize      = struct.unpack_from(UI, self._fcontents, 16)[0]                            # toatl number of usr annotation bytes including 1 null per channel
+        self._trailerSize   = struct.unpack_from(UL, self._fcontents,12)[0]                             # total number of event marker, time and date stamp, and event marker comment pointer bytes in trailer
+        self._annoSize      = struct.unpack_from(UI, self._fcontents, 16)[0]                            # total number of usr annotation bytes including 1 null per channel
         self.timeStep       = struct.unpack_from(D,  self._fcontents, 28)[0]                            # time between channel samples: 1/(sample rate throughput / total number of acquired channels)
         e14                 = struct.unpack_from(L,  self._fcontents, 36)[0]                            # time file was opened by acquisition: total number of seconds since jan 1 1970
         e15                 = struct.unpack_from(L,  self._fcontents, 40)[0]                            # time file was written by acquisition: total number of seconds since jan 1 1970
@@ -65,10 +65,10 @@ class windaq(object):
         self.phyChannel         = []
 
         for channel in range(0,self.nChannels):
-            channelOffset = self._hChannels + (self._hChannelSize * channel)                                        # calculate channel header offset from beginging of file, each channel header size is defined in _hChannelSize
+            channelOffset = self._hChannels + (self._hChannelSize * channel)                                        # calculate channel header offset from beginning of file, each channel header size is defined in _hChannelSize
             self.scalingSlope.append(struct.unpack_from(F, self._fcontents, channelOffset)[0])                      # scaling slope (m) applied to the waveform to scale it within the display window
             self.scalingIntercept.append(struct.unpack_from(F,self._fcontents, channelOffset + 4)[0])               # scaling intercept (b) applied to the waveform to scale it withing the display window
-            self.calScaling.append(struct.unpack_from(D, self._fcontents, channelOffset + 4 + 4)[0])                # calibration scaling factor (m) for waveforem vale dispaly
+            self.calScaling.append(struct.unpack_from(D, self._fcontents, channelOffset + 4 + 4)[0])                # calibration scaling factor (m) for waveform value display
             self.calIntercept.append(struct.unpack_from(D, self._fcontents, channelOffset + 4 + 4 + 8)[0])          # calibration intercept factor (b) for waveform value display
             self.engUnits.append(struct.unpack_from("cccccc", self._fcontents, channelOffset + 4 + 4 + 8 + 8))      # engineering units tag for calibrated waveform, only 4 bits are used last two are null
 
@@ -115,7 +115,7 @@ class windaq(object):
         for b in self.engUnits[channelNumber-1]:
             unit += b.decode('utf-8')
 
-        ''' Was getting \x00 in the unit string after decodeing, lets remove that and whitespace '''
+        ''' Was getting \x00 in the unit string after decoding, lets remove that and whitespace '''
         unit.replace('\x00', '').strip()
         return unit
 
