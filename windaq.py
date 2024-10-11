@@ -111,7 +111,7 @@ class windaq(object):
 
     def time_utc(self):
         ''' return time in numpy datetime64 format '''
-        return (self.time()*1e9).astype('timedelta64[ns]')+numpy.datetime64(self.fileCreatedRaw)
+        return (self.time()*1e9).astype('timedelta64[ns]') + numpy.datetime64(self.fileCreatedRaw)
 
     def unit(self, channelNumber):
         ''' return unit of requested channel '''
