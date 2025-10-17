@@ -10,6 +10,7 @@ Python 3 Version
 #!/usr/bin/python
 import struct
 import datetime
+from datetime import timezone
 import numpy
 
 class windaq(object):
@@ -50,7 +51,7 @@ class windaq(object):
         self.timeStep       = struct.unpack_from(D,  self._fcontents, 28)[0]                            # time between channel samples: 1/(sample rate throughput / total number of acquired channels)
         e14                 = struct.unpack_from(L,  self._fcontents, 36)[0]                            # time file was opened by acquisition: total number of seconds since jan 1 1970
         e15                 = struct.unpack_from(L,  self._fcontents, 40)[0]                            # time file was written by acquisition: total number of seconds since jan 1 1970
-        self.fileCreatedRaw = datetime.datetime.utcfromtimestamp(e14)                                      # datetime format of time file was opened by acquisition
+        self.fileCreatedRaw = datetime.datetime.fromtimestamp(e14, timezone.utc)                        # datetime format of time file was opened by acquisition
         self.fileCreated    = datetime.datetime.fromtimestamp(e14).strftime('%Y-%m-%d %H:%M:%S')        # datetime format of time file was opened by acquisition
         self.fileWritten    = datetime.datetime.fromtimestamp(e15).strftime('%Y-%m-%d %H:%M:%S')        # datetime format of time file was written by acquisition
         self._packed        = ((struct.unpack_from(UI, self._fcontents, 100)[0]) & 16384) >> 14         # bit 14 of element 27 indicates packed file. bitwise & e27 with 16384 to mask all bits but 14 and then shift to 0 bit place
